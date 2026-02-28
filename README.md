@@ -1,20 +1,27 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# hr-helper
 
-# Run and deploy your AI Studio app
+## 🚀 快速開始 (Run Locally)
 
-This contains everything you need to run your app locally.
+**環境要求:** Node.js 18+
 
-View your app in AI Studio: https://ai.studio/apps/efca06c0-bb9c-43fc-85ed-efed3169e747
+1. **安裝套件**:
+   ```bash
+   npm install
+   ```
 
-## Run Locally
+2. **設定環境變數**:
+   複製 `.env.example` 為 `.env.local` 並填入對應的 API Key (例如：`GEMINI_API_KEY`)。
 
-**Prerequisites:**  Node.js
+3. **啟動開發伺服器**:
+   ```bash
+   npm run dev
+   ```
 
+## 📦 部署 (Deployment)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+本專案已設定 GitHub Actions。
+
+- 只要將程式碼 push 到 `main` 或 `master` 分支，會自動觸發 `.github/workflows/deploy.yml` 工作流程。
+- 自動進行建置 (build) 並發布至 **GitHub Pages**。
+
+> **提示：** 請至 GitHub 儲存庫的 **Settings > Pages > Build and deployment** 裡，將 Source 設定為 `GitHub Actions`，確保 GitHub Pages 成功啟用。

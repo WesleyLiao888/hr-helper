@@ -11,7 +11,7 @@ interface InputSectionProps {
 }
 
 const MOCK_NAMES = [
-  "陳小明", "林美華", "張志強", "李淑芬", "王大偉", 
+  "陳小明", "林美華", "張志強", "李淑芬", "王大偉",
   "黃雅婷", "吳建國", "劉秀英", "蔡宗翰", "楊惠君",
   "許家豪", "鄭婉婷", "謝俊宏", "郭怡君", "洪志明",
   "曾淑娟", "邱建宏", "廖美玲", "賴志偉", "周雅雯"
@@ -39,7 +39,7 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
       .split(/[\n,]+/) // Split by newline or comma
       .map(name => name.trim())
       .filter(name => name.length > 0);
-    
+
     if (names.length > 0) {
       onDataLoaded(names);
       setTextInput('');
@@ -96,13 +96,6 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold tracking-tight text-slate-900">匯入名單</h2>
         <p className="text-slate-500">上傳 CSV 檔案或直接貼上姓名以開始使用。</p>
-        <button
-          onClick={() => onDataLoaded(MOCK_NAMES)}
-          className="inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-700 font-medium bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-full transition-colors mt-2"
-        >
-          <Sparkles className="w-4 h-4" />
-          載入範例名單
-        </button>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -113,14 +106,23 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
               <FileText className="w-5 h-5" />
               <span>貼上名單</span>
             </div>
-            
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors"
-            >
-              <Upload className="w-4 h-4" />
-              上傳 CSV / TXT
-            </button>
+
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button
+                onClick={() => onDataLoaded(MOCK_NAMES)}
+                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span className="hidden sm:inline">載入範例名單</span>
+              </button>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors"
+              >
+                <Upload className="w-4 h-4" />
+                <span className="hidden sm:inline">上傳 CSV / TXT</span>
+              </button>
+            </div>
             <input
               type="file"
               accept=".csv,.txt"
@@ -129,7 +131,7 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
               onChange={handleFileUpload}
             />
           </div>
-          
+
           <textarea
             className="flex-1 w-full p-3 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none text-sm font-mono"
             placeholder="王小明&#10;李小華&#10;張大千..."
@@ -152,10 +154,10 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
               <Users className="w-5 h-5 text-slate-500" />
               <span className="font-medium text-slate-700">目前名單 ({existingNames.length})</span>
             </div>
-            
+
             <div className="flex items-center gap-2">
               {hasDuplicates && (
-                <button 
+                <button
                   onClick={onRemoveDuplicates}
                   className="text-xs text-amber-600 hover:text-amber-700 font-medium flex items-center gap-1 px-2 py-1 rounded hover:bg-amber-50 transition-colors border border-amber-200 bg-amber-50"
                 >
@@ -163,8 +165,8 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
                 </button>
               )}
               {existingNames.length > 0 && (
-                <button 
-                  onClick={() => onDataLoaded([])} 
+                <button
+                  onClick={() => onDataLoaded([])}
                   className="text-xs text-red-600 hover:text-red-700 font-medium flex items-center gap-1 px-2 py-1 rounded hover:bg-red-50 transition-colors"
                 >
                   <Trash2 className="w-3 h-3" /> 清空
@@ -172,19 +174,19 @@ export function InputSection({ onDataLoaded, onRemoveDuplicates, existingNames }
               )}
             </div>
           </div>
-          
+
           <div className="p-4 overflow-y-auto flex-1 bg-slate-50/30">
             {existingNames.length > 0 ? (
               <div className="flex flex-wrap gap-2 content-start">
                 {existingNames.map((name, i) => {
                   const isDup = duplicates.includes(name);
                   return (
-                    <span 
-                      key={i} 
+                    <span
+                      key={i}
                       className={cn(
                         "inline-flex items-center px-2.5 py-1 rounded-md text-sm border transition-colors",
-                        isDup 
-                          ? "bg-amber-100 text-amber-800 border-amber-200" 
+                        isDup
+                          ? "bg-amber-100 text-amber-800 border-amber-200"
                           : "bg-white text-slate-700 border-slate-200 shadow-sm"
                       )}
                       title={isDup ? "重複的姓名" : ""}
